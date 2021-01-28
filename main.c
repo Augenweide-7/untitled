@@ -1,31 +1,21 @@
 #include<stdio.h>
-#include<stdlib.h>
+#include<string.h>
 int main(){
-    int yea,mon;
-    scanf("%d %d",&yea,&mon);
-    switch(mon){
-        case 1:
-        case 3:
-        case 5:
-        case 7:
-        case 8:
-        case 10:
-        case 12:
-            printf("31");
-            break;
-        case 4:
-        case 6:
-        case 9:
-        case 11:
-            printf("30");
-            break;
-        case 2:
-            if(yea%4==0&&yea%100!=0||yea%400==0){
-                printf("29");
-            }else{
-                printf("28");
-            }
-    }
+    char str[50];
+    int a=0,b=0,c=0,d=0;
+    scanf("%s",str);
+    for(int i=0;i<strlen(str);i++){
+        if('a'<=str[i]&&str[i]<='z'||'A'<=str[i]&&str[i]<='Z'){
+            a++;
+        }else if(str[i]==' '){
+            b++;
+        }else if('0'<=str[i]&&str[i]<='9'){
+            c++;
+        }else{
+            d++;
+        }
 
+    }
+    printf("%d\n%d\n%d\n%d\n",a,b,c,d);
     return 0;
 }
