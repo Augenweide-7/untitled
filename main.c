@@ -1,15 +1,17 @@
 #include<stdio.h>
 int main(){
-    unsigned int a,b,c;
-    int loop=0;
-    int x=0;
-    for(a=0;a<=20;a++){
-        for(b=0;a*5+b*2<=100;b++){
-            c=100-a*5-b*2;
-            printf("5分%d个，2分%d个，1分%d个\n",a,b,c);
-            loop++;
+    for(int i=1;i<10;i++){
+        for(int j=1;j<10;j++){
+            if(j<=i){
+                printf("%d*%d=%2d ",i,j,i*j);
+            }else{
+                printf("\t");
+            }
+
         }
+        printf("\n");
     }
-    printf("%d",loop);
+
+
     return 0;
 }
