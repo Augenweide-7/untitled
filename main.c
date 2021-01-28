@@ -1,21 +1,15 @@
 #include<stdio.h>
-#include<string.h>
 int main(){
-    char str[50];
-    int a=0,b=0,c=0,d=0;
-    scanf("%s",str);
-    for(int i=0;i<strlen(str);i++){
-        if('a'<=str[i]&&str[i]<='z'||'A'<=str[i]&&str[i]<='Z'){
-            a++;
-        }else if(str[i]==' '){
-            b++;
-        }else if('0'<=str[i]&&str[i]<='9'){
-            c++;
-        }else{
-            d++;
+    unsigned int a,b,c;
+    int loop=0;
+    int x=0;
+    for(a=0;a<=20;a++){
+        for(b=0;a*5+b*2<=100;b++){
+            c=100-a*5-b*2;
+            printf("5分%d个，2分%d个，1分%d个\n",a,b,c);
+            loop++;
         }
-
     }
-    printf("%d\n%d\n%d\n%d\n",a,b,c,d);
+    printf("%d",loop);
     return 0;
 }
