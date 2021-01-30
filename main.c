@@ -1,16 +1,19 @@
 #include<stdio.h>
+#include<math.h>
 int main(){
-    for(int x=0;x<=100/5;x++){
-        for(int y=0;y<=100/3;y++){
-            for(int z=0;z<=300;z++){
-                if(z%3==0){
-                    if(x+y+z==100&&5*x+3*y+z/3==100){
-                        printf("%d %d %d\n",x,y,z);
-                    }
-                }
-            }
-        }
+    float pi=0.0;
+    float i=1.0;
+    float sign=1.0;
+    float n=1.0;
+    while(fabs(i)>=1e-6){
+        pi+=i;
+        sign=-sign;
+        n+=2;
+        i=sign/n;
+
     }
+    pi=pi*4;
+    printf("%.6f",pi);
 
 
     return 0;
