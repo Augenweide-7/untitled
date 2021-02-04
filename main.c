@@ -1,17 +1,11 @@
 #include<stdio.h>
-#include<math.h>
 int main(){
-    float pi=1.0;
-    float n=1;
-    int i;
-    for(i=1;i<=100;i++,n++){
-        if(i%2==0){
-            pi*=(n/(n+1));
-        }else{
-            pi*=((n+1)/n);
-        }
-    }
-    pi=pi*2;
-    printf("%.6f",pi);
+    char name[40];
+    char surname[40];
+    printf("Please input your firstname:");
+    scanf("%s",name);
+    printf("Please input your lastname:");
+    scanf("%s",surname);
+    printf("%s,%s",name,surname);
     return 0;
 }
