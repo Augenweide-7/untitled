@@ -1,13 +1,17 @@
 #include<stdio.h>
-#define GALLON_TO_LITRE 3.785
-#define MILE_TO_KM 1.609
+#define MIN_PER_HOUR 60
 int main(){
-    float range,oil;
-    printf("Please input the range yuo traveled(in mile):");
-    scanf("%f",&range);
-    printf("Please input the oil you spend(in gallon):");
-    scanf("%f",&oil);
-    printf("%.1f M/G",range/oil);
-    printf("%.1f l/100KM",(oil*GALLON_TO_LITRE)/(range*MILE_TO_KM));
+    int hour,min,input;
+    printf("Please input the number of minutes(<=0 to quit):");
+    scanf("%d",&input);
+    while(input>0){
+        hour=input/MIN_PER_HOUR;
+        min=input%MIN_PER_HOUR;
+        printf("%d hour and %d minutes\n",hour,min);
+        printf("Please input the number of minutes(<=0 to quit):");
+        scanf("%d",&input);
+    }
+    printf("Program exit!");
+
     return 0;
 }
