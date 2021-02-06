@@ -1,16 +1,19 @@
 #include<stdio.h>
-#define DAY_PER_WEEK 7;
+#define FEET_TO_CM 30.48
+#define INCH_TO_CM 2.54
 int main(){
-    int day,week,input;
-    printf("Please input the number of days(<=0 to quit):");
-    scanf("%d",&input);
-    while(input>0){
-        week=input/DAY_PER_WEEK;
-        day=input%DAY_PER_WEEK;
-        printf("%d days are %d weeks,%d days\n",input,week,day);
-        printf("Please input the number of days(<=0 to quit):");
-        scanf("%d",&input);
+    int feet;
+    float cm,inches;
+    printf("Enter a height in centimeters:");
+    scanf("%f",&cm);
+    while(cm>0){
+        feet=cm/FEET_TO_CM;
+        inches=(cm-feet*FEET_TO_CM)/INCH_TO_CM;
+        printf("%.1f cm = %d feet,%.1f inches\n",cm,feet,inches);
+        printf("Enter a height in centimeters(<=0 to quit):");
+        scanf("%f",&cm);
+
     }
-    printf("Program exit!");
+    printf("bye");
     return 0;
 }
