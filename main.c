@@ -1,20 +1,30 @@
 #include<stdio.h>
+#include<stdbool.h>
 int main(){
-    int arr[5][3];
-    int aver[3];
-    int sum;
-    int average;
-    printf("Please input the score:");
-    for(int i=0;i<3;i++){
-        for(int j=0;j<5;j++){
-            scanf("%d",&arr[i][j]);
-            sum+=arr[i][j];
-        }
-        aver[i]=sum/5;
-        sum=0;
+    int a[10];
+    int n;
+    int temp;
+    bool flag=true;
+    scanf("%d",&n);
+    for(int i=0;i<n;i++){
+        scanf("%d",&a[i]);
     }
-    average=(aver[0]+aver[1]+aver[2])/3;
-    printf("Math:%d\nLanguage:%d\nEnglish:%d\n ",aver[0],aver[1],aver[2]);
-    printf("Average:%d",average);
+    for(int i=0;i<n-1&&flag;i++){
+        for(int j=0;j<n-1-i;j++){
+            flag=false;
+            if(a[j]>a[j+1]){
+                flag=true;
+                temp=a[j];
+                a[j]=a[j+1];
+                a[j+1]=temp;
+            }
+        }
+    }
+    for(int i=0;i<n;i++){
+        printf("%d ",a[i]);
+    }
+
+
+
     return 0;
 }
