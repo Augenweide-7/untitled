@@ -1,13 +1,13 @@
 #include<stdio.h>
 #include<stdbool.h>
 int main(){
-    int a[10];
     int n;
+    scanf("%d",&n);
+    int a[n+1];
     int temp;
     bool flag=true;
-    scanf("%d",&n);
     for(int i=0;i<n;i++){
-        scanf("%d",&a[i]);
+        scanf("%d ",&a[i]);
     }
     for(int i=0;i<n-1&&flag;i++){
         for(int j=0;j<n-1-i;j++){
@@ -20,10 +20,7 @@ int main(){
             }
         }
     }
-    for(int i=0;i<n;i++){
-        printf("%d ",a[i]);
-    }
-
+    printf("%d",a[0]);
 
 
     return 0;
