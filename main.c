@@ -1,26 +1,23 @@
 #include<stdio.h>
-#include<stdbool.h>
 int main(){
-    int n;
-    scanf("%d",&n);
-    int a[n+1];
-    int temp;
-    bool flag=true;
-    for(int i=0;i<n;i++){
-        scanf("%d ",&a[i]);
-    }
-    for(int i=0;i<n-1&&flag;i++){
-        for(int j=0;j<n-1-i;j++){
-            flag=false;
-            if(a[j]>a[j+1]){
-                flag=true;
-                temp=a[j];
-                a[j]=a[j+1];
-                a[j+1]=temp;
-            }
+    int n,k;
+    int sum1=0,sum2=0;
+    float aver1,aver2;
+    float num1=0.0,num2=0.0;
+    scanf("%d %d",&n,&k);
+    for(int i=1;i<=n;i++){
+        if(i%k==0){
+            sum1+=i;
+            num1++;
+        }else{
+            sum2+=i;
+            num2++;
         }
+
     }
-    printf("%d",a[0]);
+    aver1=sum1/num1;
+    aver2=sum2/num2;
+    printf("%.1f %.1f",aver1,aver2);
 
 
     return 0;
