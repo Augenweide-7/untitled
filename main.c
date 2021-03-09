@@ -1,25 +1,21 @@
 #include<stdio.h>
-#include<stdbool.h>
 int main(){
-    bool flag=true;
-    int k,n=1;
-    scanf("%d",&k);
-    double num,Sn=0.0;
-    if(k==0){
-        printf("0");
-    }else{
-        for(int i=1;flag;i++){
-            num=1.0/i;
-            Sn+=num;
-            if(Sn<=k){
-                flag=true;
-                n++;
-            }else{
-                flag=false;
+    int K;
+    scanf("%d",&K);
+    int days=0,coin=0;
+    for(int i=1;i<=K;i++){
+        for(int j=1;j<=i;j++){
+            coin+=i;
+            days+=1;
+            if(days==K){
+                break;
             }
-
         }
-        printf("%d",n);
+        if(days==K){
+            break;
+        }
     }
+    printf("%d",coin);
+
     return 0;
 }
