@@ -1,39 +1,18 @@
 #include<stdio.h>
-int main(){
-    int arr[3];
-    int temp;
-    for(int i=0;i<3;i++){
-        scanf("%d",&arr[i]);
+int main() {
+    int a[10];
+    int height;
+    int h=30;
+    for (int i = 0; i < 10; i++) {
+        scanf("%d", &a[i]);//读取10个苹果到地面的高度
     }
-    for(int i=0;i<3-1;i++){
-        for(int j=0;j<3-i-1;j++){
-            if(arr[j]>arr[j+1]){
-                temp=arr[j];
-                arr[j]=arr[j+1];
-                arr[j+1]=temp;
-
-            }
+    scanf("%d", &height);//读取手伸直时能达到的高度
+    int loop=0;
+    for (int i = 0; i < 10; i++) {
+        if (a[i]<=height+h){
+            loop++;
         }
     }
-    int a=arr[0],b=arr[1],c=arr[2];
-    if(a+b>c){
-        if(a*a+b*b==c*c){
-            printf("Right triangle\n");
-        }else if(a*a+b*b>c*c){
-            printf("Acute triangle\n");
-        }else{
-            printf("Obtuse triangle\n");
-        }
-        if(a==b||b==c||a==c){
-            printf("Isosceles triangle\n");
-        }
-        if(a==b&&b==c){
-            printf("Equilateral triangle\n");
-        }
-    }else{
-        printf("Not triangle\n");
-    }
+    printf("%d",loop);
     return 0;
 }
-
-
