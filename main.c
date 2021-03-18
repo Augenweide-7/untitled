@@ -1,15 +1,21 @@
 #include<stdio.h>
 int main(){
-    int max=0,sum,day;
-    int a,b;
-    for(int i=1;i<8;i++){
-        scanf("%d %d",&a,&b);
-        sum=a+b;
-        if(sum>max&&sum>8){
-            day=i;
-            max=sum;
+    long long int N;
+    scanf("%lld",&N);
+    if(N==0){
+        printf("0");
+    }else if(N<0){
+        N=-N;
+        printf("-");
+    }
+    int b,flag=0;
+    while(N!=0){
+        b=N%10;
+        N=N/10;
+        if(b!=0||flag){
+            printf("%d",b);
+            flag=1;
         }
     }
-    printf("%d",day);
     return 0;
 }
