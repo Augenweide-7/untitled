@@ -1,4 +1,4 @@
-//链表查找元素
+//链表更新元素
 #include<stdio.h>
 #include<stdlib.h>
 typedef struct Link{
@@ -26,23 +26,20 @@ void displayLink(link *p){
     }
     printf("\n");
 }
-int selectElem(link *p,int elem){
-    link *t=p;//创建一个临时节点
-    int i=1;
-    while(t->next ){
-        t=t->next ;
-        if(t->elem ==elem){
-            printf("%d",i);
-        }
-        i++;
+link *amendElem(link *p,int add,int newElem){
+    link *temp=p;
+    temp=temp->next ;//遍历之前temp指向头节点
+    for(int i=1;i<add;i++){
+        temp=temp->next ;
     }
-    //程序执行至此，表示查找失败
-    return -1;
+    temp->elem =newElem;
+    return p;
 }
 int main(){
     printf("初始化链表为:\n");
     link *p=initLink();
     displayLink(p);
-    selectElem(p,4);
+    amendElem(p,3,7);
+    displayLink(p);
     return 0;
 }
