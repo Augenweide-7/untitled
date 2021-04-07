@@ -106,7 +106,7 @@ int main(){
     //链表查找元素
     selectElem(p,8);
     //链表更改元素
-    amendElem(p,2,3);
+    amendElem(p,2,2);
     displayLink(p);
     return 0;
 }
