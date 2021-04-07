@@ -1,4 +1,4 @@
-//链表删除元素
+//链表查找元素
 #include<stdio.h>
 #include<stdlib.h>
 typedef struct Link{
@@ -26,25 +26,23 @@ void displayLink(link *p){
     }
     printf("\n");
 }
-link *delElem(link *p,int add){
-    link *temp=p;
-    for(int i=1;i<add;i++){
-        temp=temp->next ;
-        if(temp->next ==NULL){
-            printf("没有该节点\n");
-            return p;
+int selectElem(link *p,int elem){
+    link *t=p;//创建一个临时节点
+    int i=1;
+    while(t->next ){
+        t=t->next ;
+        if(t->elem ==elem){
+            printf("%d",i);
         }
+        i++;
     }
-    link *del=temp->next ;//单独设置一个指针指向被删除的节点
-    temp->next =temp->next->next ;
-    free(del);//手动释放被删除的节点
-    return p;
+    //程序执行至此，表示查找失败
+    return -1;
 }
 int main(){
     printf("初始化链表为:\n");
     link *p=initLink();
     displayLink(p);
-    delElem(p,2);
-    displayLink(p);
+    selectElem(p,4);
     return 0;
 }
