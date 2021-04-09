@@ -1,18 +1,52 @@
-//链表增删查改总结
+//实现无头节点链表的逆置
 #include<stdio.h>
 #include<stdlib.h>
 typedef struct Link{
-    int elem;//数据域
-    struct Link *next;//指针域
+    int elem;
+    struct Link* next;
 }link;
 
-//初始化链表函数
+//初始化链表的函数
+link* initLink();
+//输出链表的函数
+void displayLink(link *p);
+//迭代法反转链表
+link * iteration_reverse(link * head);
+//递归法反转链表
+link * recursive_reverse(link * head);
+//头插法反转链表
+link * head_reverse(link * head);
+//就地逆置法反转链表
+link * local_reverse(link * head);
+
+int main(){
+    link *p=initLink();
+    printf("初始化链表为:\n");
+    displayLink(p);
+
+    p=iteration_reverse(p);
+    displayLink(p);
+
+    p=recursive_reverse(p);
+    displayLink(p);
+
+    p=head_reverse(p);
+    displayLink(p);
+
+    p=local_reverse(p);
+    displayLink(p);
+    return 0;
+}
+
 link *initLink(){
-    link *p=NULL;//创建头指针
-    link *temp=(link*)malloc(sizeof(link*));//创建头节点
-    p=temp;//头指针指向头节点
+    link *p=NULL ;//创建头指针
+    link *temp=(link*)malloc(sizeof(link*));//创建首元节点
+    //首元节点初始化
+    temp->elem =1;
+    temp->next =NULL;
+    p=temp;//头指针指向首元节点
     //创建其他节点
-    for(int i=1;i<5;i++){
+    for(int i=2;i<5;i++){
         link *a=(link*)malloc(sizeof(link*));
         a->elem =i;
         a->next =NULL;
@@ -21,92 +55,98 @@ link *initLink(){
     }
     return p;
 }
-
-//链表插入元素函数
-link *insertElem(link *p,int elem,int add){
-    link *temp=p;//创建一个临时节点
-    for(int i=1;i<add;i++){
-        temp=temp->next ;
-        if(temp==NULL){
-            printf("插入位置无效\n");
-            return p;
-        }
-        //创建插入节点c
-        link *c=(link*)malloc(sizeof(link*));
-        c->elem =elem;
-        //向链表中插入节点c
-        c->next =temp->next ;
-        temp->next =c;
-    }
-    return p;
-}
-
-//链表删除元素函数
-link *delElem(link *p,int add){
-    link *temp=p;//创建一个临时节点
-    for(int i=1;i<add;i++){
-        temp=temp->next ;
-        if(temp->next ==NULL){
-            printf("没有此节点\n");
-            return p;
-        }
-    }
-    link *del=temp->next ;//单独设置一个指针指向被删除节点，以防丢失
-    temp->next =temp->next ->next ;
-    free(del);//手动释放被删除的节点
-    return p;
-}
-
-//链表查找元素函数
-int selectElem(link *p,int elem){
-    link *temp=p;//创建一个临时节点
-    int i=1;
-    while(temp->next ){
-        temp=temp->next ;
-        if(temp->elem ==elem){
-            printf("%d\n",i);
-        }
-        i++;
-    }
-    //程序运行到此处表示查找失败
-    return -1;
-}
-
-//链表更改元素函数
-link *amendElem(link *p,int add,int newElem){
-    link *temp=p;
-    temp=temp->next ;//遍历之前让temp指向首元节点
-    for(int i=1;i<add;i++){
-        temp=temp->next ;
-    }
-    temp->elem =newElem;
-    return p;
-}
-
-//显示链表的函数
 void displayLink(link *p){
-    link *temp=p;
-    while(temp->next ){
-        temp=temp->next ;
+    link *temp=p;//将temp指向头指针
+    while(temp){
         printf("%d ",temp->elem );
+        temp=temp->next ;
     }
     printf("\n");
 }
 
-int main(){
-    printf("初始化链表为:\n");
-    link *p=initLink();
-    displayLink(p);
-    //链表插入元素
-    insertElem(p,8,2);
-    displayLink(p);
-    //链表删除元素
-    delElem(p,3);
-    displayLink(p);
-    //链表查找元素
-    selectElem(p,8);
-    //链表更改元素
-    amendElem(p,2,2);
-    displayLink(p);
-    return 0;
+//迭代反转法
+link *iteration_reverse(link *head){   //head为无头节点链表的头指针
+    if(head==NULL||head->next==NULL){
+        return head;
+    }
+    else{
+        link *beg=NULL;
+        link *mid=head;
+        link *end=head->next ;
+        //一直遍历
+        while(1){
+            //修改mid的指向
+            mid->next=beg;
+            //判断end是否为NULL，如果成立则退出循环
+            if(end==NULL){
+                break;
+            }
+            //整体向后移动3个指针
+            beg=mid;
+            mid=end;
+            end=end->next ;
+        }
+        //最后修改head的指向
+        head=mid;
+        return head;
+    }
+}
+
+//递归反转法
+link* recursive_reverse(link *head){
+    //递归出口
+    if(head==NULL||head->next ==NULL){
+        return head;
+    }else{
+        //递归部分
+        link *new_head=recursive_reverse(head->next );
+        //逐层退出时，new_head的指向都不变，一直指向原链表中最后一个节点；
+        //递归每退出一层，函数中head指针的指向都会发生变化，指向上一个节点
+        //每退出一层，都需要改变head->next节点指针域的指向，同时令head所指节点的指针域为NULL。
+        head->next ->next =head;
+        head->next =NULL;
+
+        return new_head;
+    }
+}
+
+//头插法反转链表
+link *head_reverse(link *head){
+    link *new_head=NULL;
+    link *temp=NULL;
+    if(head==NULL||head->next ==NULL){
+        return head;
+    }else{
+        while(head!=NULL){
+            temp=head;
+            //将temp从head中移除
+            head=head->next ;
+            //将temp插入到new_head头部
+            temp->next =new_head;
+            new_head=temp;
+        }
+        return new_head;
+    }
+}
+
+//就地逆置法反转链表
+link *local_reverse(link *head){
+    link *beg=NULL;
+    link *end=NULL;
+    if(head==NULL||head->next ==NULL){
+        return head;
+    }else{
+        beg=head;
+        end=head->next ;
+        while(end!=NULL){
+            //将end从链表中移除
+            beg->next =end->next ;
+            //将end移动至表头
+            end->next =head;
+            head=end;
+            //调整end的指向，为反转下一个节点做准备
+            end=beg->next ;
+        }
+        return head;
+    }
 }
