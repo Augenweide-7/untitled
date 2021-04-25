@@ -1,39 +1,31 @@
 #include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+#include<string.h>
+#include<sys/types.h>
+#define BUF_SIZE 256
 int main(){
-    char c;
-    int n;
-    int i,j;
-    scanf("%c %d",&c,&n);
-    for(i=1;i<=n/2+1;i++){
-        for(j=n/2;j>=i;j--){
-            printf(" ");
-        }
-        for(j=0;j<i*2-1;j++){
-            if(j==0||j==i*2-2){
-                printf("%c",c);
-            }
-            else{
-                printf(" ");
-            }
-        }
-        c+=1;
-        printf("\n");
+    int fd[2];
+    char data[]="hello,I am parent!";
+    char buf[BUF_SIZE];
+    pid_t pid;
+    if(pipe(fd)<0){
+        printf("pipe error!\n");
+        exit(1);
     }
-    c-=1;
-    for(i=1;i<=n/2;i++){
-        c-=1;
-        for(j=1;j<=i;j++){
-            printf(" ");
-        }
-        for(j=n-2;j>=i*2-1;j--){
-            if(j==n-2||j==i*2-1){
-                printf("%c",c);
-            }
-            else{
-                printf(" ");
-            }
-        }
-        printf("\n");
+    pid=fork();
+    if(pid<0){
+        printf("fork error!\n");
+        exit(1);
+    }else if(pid==0){
+        close(fd[1]);
+        int len=read(fd[0],buf,sizeof(buf));
+        printf("child:%s\n",buf);
+    }else{
+        close(fd[0]);
+        write(fd[1],data,strlen(data));
+        printf("parent:%s\n",data);
+        sleep(1);
     }
     return 0;
 }
