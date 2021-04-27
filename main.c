@@ -1,31 +1,57 @@
 #include<stdio.h>
-#include<stdlib.h>
-#include<unistd.h>
-#include<string.h>
-#include<sys/types.h>
-#define BUF_SIZE 256
 int main(){
-    int fd[2];
-    char data[]="hello,I am parent!";
-    char buf[BUF_SIZE];
-    pid_t pid;
-    if(pipe(fd)<0){
-        printf("pipe error!\n");
-        exit(1);
+    int M,N;
+    int i,j,n=0,f=0;
+    int a[20],b[20],c[30];
+    scanf("%d",&M);
+    for(i=0;i<M;i++){
+        scanf("%d",&a[i]);
     }
-    pid=fork();
-    if(pid<0){
-        printf("fork error!\n");
-        exit(1);
-    }else if(pid==0){
-        close(fd[1]);
-        int len=read(fd[0],buf,sizeof(buf));
-        printf("child:%s\n",buf);
-    }else{
-        close(fd[0]);
-        write(fd[1],data,strlen(data));
-        printf("parent:%s\n",data);
-        sleep(1);
+    scanf("%d",&N);
+    for(i=0;i<N;i++){
+        scanf("%d",&b[i]);
+    }
+    for(i=0;i<M;i++){
+        for(j=0;j<N;j++){
+            if(b[j]== a[i]){
+                f=0;
+                break;
+            }else{
+                f=1;
+            }
+        }
+        if(f==1){
+            c[n]=a[i];
+            n++;
+        }
+    }
+    for(i=0;i<N;i++){
+        for(j=0;j<N;j++){
+            if(b[i]==a[j]){
+                f=0;
+                break;
+            }else{
+                f=1;
+            }
+        }
+        if(f==1){
+            c[n]=b[i];
+            n++;
+        }
+    }
+    printf("%d",c[0]);
+    for(i=1;i<n;i++){
+        for(j=0;j<i;j++){
+            if(c[i]==c[j]){
+                f=0;
+                break;
+            }else{
+                f=1;
+            }
+        }
+        if(f==1){
+            printf(" %d",c[j]);
+        }
     }
     return 0;
 }
