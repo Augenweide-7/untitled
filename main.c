@@ -1,57 +1,78 @@
 #include<stdio.h>
-int main(){
-    int M,N;
-    int i,j,n=0,f=0;
-    int a[20],b[20],c[30];
-    scanf("%d",&M);
-    for(i=0;i<M;i++){
-        scanf("%d",&a[i]);
-    }
-    scanf("%d",&N);
-    for(i=0;i<N;i++){
-        scanf("%d",&b[i]);
-    }
-    for(i=0;i<M;i++){
-        for(j=0;j<N;j++){
-            if(b[j]== a[i]){
-                f=0;
-                break;
-            }else{
-                f=1;
-            }
-        }
-        if(f==1){
-            c[n]=a[i];
-            n++;
-        }
-    }
-    for(i=0;i<N;i++){
-        for(j=0;j<N;j++){
-            if(b[i]==a[j]){
-                f=0;
-                break;
-            }else{
-                f=1;
-            }
-        }
-        if(f==1){
-            c[n]=b[i];
-            n++;
-        }
-    }
-    printf("%d",c[0]);
-    for(i=1;i<n;i++){
-        for(j=0;j<i;j++){
-            if(c[i]==c[j]){
-                f=0;
-                break;
-            }else{
-                f=1;
-            }
-        }
-        if(f==1){
-            printf(" %d",c[j]);
-        }
-    }
+#include<stdlib.h>
+
+#define MAX 100
+typedef int ElemType;
+typedef struct {
+    ElemType elem[MAX];
+    int length;
+} SeqList;
+
+SeqList *CreatSqlist();
+
+void mergeSqlist1(SeqList *A, SeqList *B, SeqList *C);//递增、递增、递增
+
+void mergeSqlist2(SeqList *A, SeqList *B, SeqList *C);//递增、递增、递减
+
+void DisplaySqlist(SeqList *A);
+
+int main() {
+    SeqList *A, *B;
+    A = CreatSqlist();
+    B = CreatSqlist();
+    SeqList *C = (SeqList *) malloc(sizeof(SeqList));
+    mergeSqlist2(A, B, C);
+    DisplaySqlist(C);
     return 0;
+}
+
+SeqList *CreatSqlist() {
+    SeqList *sq = (SeqList *) malloc(sizeof(SeqList));
+    scanf("%d", &sq->length);
+    for (int i = 0; i < sq->length; i++) {
+        scanf("%d", &sq->elem[i]);
+    }
+    return sq;
+}
+
+void mergeSqlist1(SeqList *A, SeqList *B, SeqList *C) {
+    int i, j, k;
+    i = 0;
+    j = 0;
+    k = 0;
+    while (i < A->length && j < B->length) {
+        if (A->elem[i] <= B->elem[j])
+            C->elem[k++] = A->elem[i++];
+        else
+            C->elem[k++] = B->elem[j++];
+    }
+    while (i < A->length)
+        C->elem[k++] = A->elem[i++];
+    while (j < B->length)
+        C->elem[k++] = B->elem[j++];
+    C->length = A->length + B->length;
+}
+
+void mergeSqlist2(SeqList *A, SeqList *B, SeqList *C) {
+    int i, j, k;
+    i = A->length-1;
+    j = B->length-1;
+    k = 0;
+    while (i >= 0 && j >= 0) {
+        if (A->elem[i] >= B->elem[j])
+            C->elem[k++] = A->elem[i--];
+        else
+            C->elem[k++] = B->elem[j--];
+    }
+    while (i >= 0)
+        C->elem[k++] = A->elem[i--];
+    while (j >= 0)
+        C->elem[k++] = B->elem[j--];
+    C->length = A->length + B->length;
+}
+
+void DisplaySqlist(SeqList *sq) {
+    for (int i = 0; i < sq->length; i++) {
+        printf("%d ", sq->elem[i]);
+    }
 }
